@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css" />
+    <link rel="stylesheet" href="~/root/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/root/css/site.css" />
+
+
+</head>
+<body>
+    <nav class="navbar " style="/*background-color:rgba(0, 0, 0,1) !important;*/ border-bottom:none;box-shadow:none">
+        <div class="container">
+            <div class="nav navbar-nav navbar-left">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-link">
+                    <img class="navLogo" src="~/root/images/app-logo-s.png">
+                </a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Market", "index", "Market")</li>
+            </ul>
+</div>
+    </nav>
+    <div class="container">
+        @RenderBody()
+    </div>
+    <footer class="container-fluid ftr">
+        <div class="block-footer center-main-block clearfix">
+            <article>
+                <h2>Our Stores</h2>
+                <div class="footer-content">
+                    <p>
+                        Feel free to visit our stores or contact us.<br>
+                        1401 South Grand Avenue <br>
+                        Los Angeles, CA 90015 <br>
+                        (213) 748-2411
+                    </p>
+                    <p>
+                        100 Fairview Drive
+                        Franklin, VA 23851
+                        (757) 569-6100
+                    </p>
+                </div>
+            </article>
+            <article>
+                <h2>Blog posts</h2>
+                <div class="footer-content">
+                    <h3><a href="">Justin Bieber confirmed that he is gay.</a></h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Donec sed auctor elit.
+                    </p>
+                    <h3><a href="">New sexy sport clothes are here!</a></h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Donec sed auctor elit.
+                    </p>
+                    <h3><a href="">Summer sales are coming!</a></h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Donec sed auctor elit.
+                    </p>
+                </div>
+            </article>
+            <article>
+                <h2>Support</h2>
+                <div class="footer-content clearfix ">
+                    <p class="support1 ">
+                        <a href="">Terms & Conditions</a><br>
+                        <a href="">FAQ</a><br>
+                        <a href="">Payment</a><br>
+                        <a href="">Refunds</a><br>
+                        <a href="">Track Order</a><br>
+                        <a href="">Services</a><br>
+                        <a href="">Privacy & Security</a><br>
+                        <a href="">Careers</a><br>
+                        <a href="">Press</a><br>
+                        <a href="">Corporate Information</a>
+                    </p>
+                    <p class="support2 ">
+                        <a>Sizing</a><br>
+                        <a href="">Ordering</a><br>
+                        <a href="">Shipping</a><br>
+                        <a href="">Return Policy</a><br>
+                        <a href="">Affiliates</a><br>
+                        <a href="">Find A Store </a><br>
+                        <a href="">Site Map</a><br>
+                        <a href="">Sign Up & Save</a>
+                    </p>
+                </div>
+            </article>
+            <article>
+                <h2>Contact us</h2>
+                <div class="footer-content clearfix">
+                    <form>
+                        <input class="email" type="email" placeholder="YOUR E-MAIL...">
+                        <textarea class="textform" placeholder="YOUR TEXT...">
+					  </textarea>
+                        <input class="btn btn-File" type="submit" value="Send MESSAGE">
+                    </form>
+                </div>
+            </article>
+        </div>
+    </footer>
+</body>
+
+</html>

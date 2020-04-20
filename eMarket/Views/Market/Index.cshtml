@@ -1,0 +1,128 @@
+﻿@model IEnumerable<eMarket.Models.ProductListingModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_LayoutPage.cshtml";
+}
+
+@*<h2>Index</h2>
+    <tr>
+        <td>Category </td>
+        <td> :</td>
+        <td>
+            @using (Ajax.BeginForm("SelectCategory", "Categories",
+    new AjaxOptions { UpdateTargetId = "products" }))
+            {
+                @Html.DropDownListFor(
+                        m => m.selectedCategoryId,
+                        new SelectList(Model.Categories, "Id", "Name"),
+                       string.Empty
+                    )
+            }
+
+        </td>
+        </tr>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NoOfProfucts)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NoOfProfucts)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>*@
+
+
+
+    <div class="row ">
+       
+        @Html.ActionLink("AddProduct", "AddProduct", null, htmlAttributes: new { @class = "btn btn-lg btn-success", @style = "float:right" })
+    </div>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+
+
+            <div class="el-wrapper col-md-3">
+                <div class="box-up">
+                    <img class="img" src="@item.Img" width="120" height="225"  alt="">
+                    <div class="img-info">
+                        <div class="info-inner">
+                            <span class="p-name about">@item.ProductName</span>
+                            <span class="p-company">@item.Category.Name</span>
+                        </div>
+                        <div class="a-size">Descripton: <span class="size">@item.Descripton</span></div>
+                    </div>
+                </div>
+
+                <div class="box-down">
+                    <div class="h-bg">
+                        <div class="h-bg-inner"></div>
+                    </div>
+
+                    <div class="cart">
+                        <span class="price">@item.Price</span>
+                        <span class="add-to-cart">
+                            <span >
+                                @Html.ActionLink("   Details", "ProductDetails", new { id = item.Number },htmlAttributes:new { @class="txt"})
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+
+            $("#LoaderDIV").show();
+
+            var MyformData = $("#MyForm").serialize();
+            $.ajax({
+
+                type: "POST",
+                url: "/Category/Create",
+                data: MyformData,
+                success: function () {
+                    $("#LoaderDIV").hide();
+                    $("#MYModal").modal("hide");
+                    alert("You Are Done ...");
+
+                }
+            })
+        })
+    });
+</script>
+
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

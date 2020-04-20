@@ -1,0 +1,22 @@
+﻿@model eMarket.Models.ProductViewModel
+@{
+    Layout = "~/Views/_LayoutPage.cshtml";
+}
+    <div class="postReply">
+        <div class="row">
+            <h1 class="forumTitle">
+                @Model.ProductName    -   @Model.Price EGP    (@Model.Category.Name)
+            </h1>
+        </div>
+        <div class="row "><img src="@Model.Img" alt="Alternate Text" /></div>
+        <div class="noPost"></div>
+        <div class="row ">
+            @Model.Descripition
+        </div>
+        <div class="noPost"></div>
+        <div class="row">
+            @Html.ActionLink("Delete", "DeleteProduct", new { id = Model.Number }, htmlAttributes: new { @class = "btn btn-danger", @style = "float:right" })
+            @Html.ActionLink("Update", "UpdateProduct", new { id = Model.Number }, htmlAttributes: new { @class = "btn btn-success", @style = "float:left" })
+
+        </div>
+    </div>
