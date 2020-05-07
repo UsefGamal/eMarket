@@ -19,6 +19,8 @@ namespace eMarket.Controllers
     {
         private readonly IProduct _productService;
         private readonly ICategory _categoryService;
+
+       
         public MarketController(IProduct productService, ICategory categoryService)
         {
             _productService = productService;
@@ -37,20 +39,44 @@ namespace eMarket.Controllers
                     Category = GetCategoryListingForProduct(prod)
 
                 });
+            ViewBag.categryId = new SelectList(_categoryService.GetAllCategories(), "id", "name");
+
             return View(products);
         }
 
         [HttpPost]
-        public ActionResult Index(Product model)
-        {
-            if (ModelState.IsValid == true)
-            {
-                var CategoryList = _categoryService.GetAllCategories().ToList();
-                ViewBag.DDLCategory = new SelectList(CategoryList, "CategoryId", "CategoryName");
-            }
-            return View(model);
-        }
 
+        public ActionResult Index(int? categryId)
+        {
+            var products = _productService.GetAllProducts()
+                .Select(prod => new ProductListingModel
+                {
+                    Number = prod.id,
+                    Price = prod.price.Value,
+                    Descripton = prod.description,
+                    Img = "/root/images/ProductImages/" + prod.Image,
+                    ProductName = prod.name,
+                    Category = GetCategoryListingForProduct(prod)
+
+                });
+            if (categryId !=null)
+            {
+             products = _productService.GetAllProducts()
+                    .Where(a => a.categryId == categryId)
+                    .Select(prod => new ProductListingModel
+                    {
+                        Number = prod.id,
+                        Price = prod.price.Value,
+                        Descripton = prod.description,
+                        Img = "/root/images/ProductImages/" + prod.Image,
+                        ProductName = prod.name,
+                        Category = GetCategoryListingForProduct(prod)
+
+                    });
+            }
+            ViewBag.categryId = new SelectList(_categoryService.GetAllCategories(), "id", "name");
+            return View(products);
+        }
         // GET: Products/AddProduct
         public ActionResult AddProduct()
         {
@@ -252,7 +278,7 @@ namespace eMarket.Controllers
             {
                 Id = category.id,
                 Name = category.name,
-                number_of_products = category.number_of_products ?? 0
+                Number_of_products = category.number_of_products ?? 0
             };
         }
         private CategoryListingModel GetCategoryListingForProduct(Product Product)
@@ -262,7 +288,7 @@ namespace eMarket.Controllers
             {
                 Id = category.id,
                 Name = category.name,
-                number_of_products = category.number_of_products ?? 0
+                Number_of_products = category.number_of_products ?? 0
             };
         }
 

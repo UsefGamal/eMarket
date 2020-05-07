@@ -5,60 +5,16 @@
     Layout = "~/Views/_LayoutPage.cshtml";
 }
 
-@*<h2>Index</h2>
-    <tr>
-        <td>Category </td>
-        <td> :</td>
-        <td>
-            @using (Ajax.BeginForm("SelectCategory", "Categories",
-    new AjaxOptions { UpdateTargetId = "products" }))
-            {
-                @Html.DropDownListFor(
-                        m => m.selectedCategoryId,
-                        new SelectList(Model.Categories, "Id", "Name"),
-                       string.Empty
-                    )
-            }
-
-        </td>
-        </tr>
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.NoOfProfucts)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NoOfProfucts)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    </td>
-                </tr>
-            }
-
-        </table>*@
-
-
-
     <div class="row ">
-       
+        @using (Html.BeginForm())
+        {
+            <div class="col-md-8">
+                @Html.DropDownList("categryId", null, "--Select a Category--", htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="col-md-2">
+                <input type="submit" value="search" class="btn btn-success" />
+            </div>
+        }
         @Html.ActionLink("AddProduct", "AddProduct", null, htmlAttributes: new { @class = "btn btn-lg btn-success", @style = "float:right" })
     </div>
     <div class="row">
