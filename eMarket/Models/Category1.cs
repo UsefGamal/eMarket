@@ -12,16 +12,19 @@ namespace eMarket.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Category1
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Category1()
+        {
+            this.Products = new HashSet<Product1>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
-        public Nullable<double> price { get; set; }
-        public string Image { get; set; }
-        public string description { get; set; }
-        public int categryId { get; set; }
+        public Nullable<int> number_of_products { get; set; }
     
-        public virtual Category Category { get; set; }
-        public virtual Cart Cart { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product1> Products { get; set; }
     }
 }

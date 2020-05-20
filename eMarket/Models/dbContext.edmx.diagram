@@ -8,6 +8,16 @@
         <EntityTypeShape EntityType="storeModel.Category" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="storeModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="storeModel.FK_Product_Category" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="storeModel.Cart" Width="1.5" PointX="6.125" PointY="1.375" />
+        <AssociationConnector Association="storeModel.ProductCart" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.5" PointY="2.172841796875" />
+          <ConnectorPoint PointX="6.125" PointY="2.172841796875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="storeModel.Cart1" Width="1.5" PointX="5.25" PointY="5.375" />
+        <EntityTypeShape EntityType="storeModel.Category1" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="storeModel.Product1" Width="1.5" PointX="3" PointY="5" />
+        <AssociationConnector Association="storeModel.FK__Cart__Product_id__4D94879B" />
+        <AssociationConnector Association="storeModel.FK_Product_Category1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

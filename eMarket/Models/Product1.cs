@@ -12,7 +12,7 @@ namespace eMarket.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Product1
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -21,7 +21,7 @@ namespace eMarket.Models
         public string description { get; set; }
         public int categryId { get; set; }
     
-        public virtual Category Category { get; set; }
-        public virtual Cart Cart { get; set; }
+        public virtual Cart1 Cart { get; set; }
+        public virtual Category1 Category { get; set; }
     }
 }

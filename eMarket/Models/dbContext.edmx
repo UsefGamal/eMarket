@@ -4,48 +4,133 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="storeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar(max)" />
-          <Property Name="number_of_products" Type="int" />
-        </EntityType>
-        <EntityType Name="Product">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="50" />
-          <Property Name="price" Type="float" />
-          <Property Name="Image" Type="nvarchar" MaxLength="50" />
-          <Property Name="description" Type="varchar(max)" />
-          <Property Name="categryId" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Product_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="categryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="storeModelStoreContainer">
-          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="storeModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="storeModelStoreContainer">
+    <EntitySet Name="Categories" EntityType="storeModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Products" EntityType="storeModel.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Carts" EntityType="storeModel.Store.Carts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cart1" EntityType="storeModel.Store.Cart1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Category1" EntityType="storeModel.Store.Category1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Product1" EntityType="storeModel.Store.Product1" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Product_Category" Association="storeModel.Store.FK_Product_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="ProductCart" Association="storeModel.Store.ProductCart">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Cart__Product_id__4D94879B" Association="storeModel.Store.FK__Cart__Product_id__4D94879B">
+      <End Role="Product1" EntitySet="Product1" />
+      <End Role="Cart1" EntitySet="Cart1" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Category1" Association="storeModel.Store.FK_Product_Category1">
+      <End Role="Category1" EntitySet="Category1" />
+      <End Role="Product1" EntitySet="Product1" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="number_of_products" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="price" Type="float" Nullable="true" />
+    <Property Name="Image" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="description" Type="varchar(max)" Nullable="true" />
+    <Property Name="categryId" Type="int" Nullable="false" />
+    <Property Name="Cart_product_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Carts">
+    <Key>
+      <PropertyRef Name="product_Id" />
+    </Key>
+    <Property Name="product_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="added_at" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cart1">
+    <Key>
+      <PropertyRef Name="Product_id" />
+    </Key>
+    <Property Name="Product_id" Type="int" Nullable="false" />
+    <Property Name="added_at" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Category1">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="number_of_products" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Product1">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="price" Type="float" Nullable="true" />
+    <Property Name="Image" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="description" Type="varchar(max)" Nullable="true" />
+    <Property Name="categryId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Product_Category">
+    <End Role="Category" Type="storeModel.Store.Categories" Multiplicity="1" />
+    <End Role="Product" Type="storeModel.Store.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="categryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductCart">
+    <End Role="Product" Type="storeModel.Store.Products" Multiplicity="*" />
+    <End Role="Cart" Type="storeModel.Store.Carts" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Cart">
+        <PropertyRef Name="product_Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="Cart_product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Cart__Product_id__4D94879B">
+    <End Role="Product1" Type="storeModel.Store.Product1" Multiplicity="1" />
+    <End Role="Cart1" Type="storeModel.Store.Cart1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Product1">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Cart1">
+        <PropertyRef Name="Product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Category1">
+    <End Role="Category1" Type="storeModel.Store.Category1" Multiplicity="1" />
+    <End Role="Product1" Type="storeModel.Store.Product1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category1">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product1">
+        <PropertyRef Name="categryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="storeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -69,6 +154,7 @@
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="categryId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Cart" Relationship="storeModel.ProductCart" FromRole="Product" ToRole="Cart" />
         </EntityType>
         <Association Name="FK_Product_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -89,37 +175,163 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <EntitySet Name="Cart" EntityType="storeModel.Cart" />
+          <AssociationSet Name="ProductCart" Association="storeModel.ProductCart">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <EntitySet Name="Cart1" EntityType="storeModel.Cart1" />
+          <EntitySet Name="Category1" EntityType="storeModel.Category1" />
+          <EntitySet Name="Product1" EntityType="storeModel.Product1" />
+          <AssociationSet Name="FK__Cart__Product_id__4D94879B" Association="storeModel.FK__Cart__Product_id__4D94879B">
+            <End Role="Product1" EntitySet="Product1" />
+            <End Role="Cart1" EntitySet="Cart1" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category1" Association="storeModel.FK_Product_Category1">
+            <End Role="Category1" EntitySet="Category1" />
+            <End Role="Product1" EntitySet="Product1" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="product_Id" />
+          </Key>
+          <Property Name="product_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="added_at" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="storeModel.ProductCart" FromRole="Cart" ToRole="Product" />
+        </EntityType>
+        <Association Name="ProductCart">
+          <End Type="storeModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="storeModel.Cart" Role="Cart" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Cart1">
+          <Key>
+            <PropertyRef Name="Product_id" />
+          </Key>
+          <Property Name="Product_id" Type="Int32" Nullable="false" />
+          <Property Name="added_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="storeModel.FK__Cart__Product_id__4D94879B" FromRole="Cart1" ToRole="Product1" />
+        </EntityType>
+        <EntityType Name="Category1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="number_of_products" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="storeModel.FK_Product_Category1" FromRole="Category1" ToRole="Product1" />
+        </EntityType>
+        <EntityType Name="Product1">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="Double" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="categryId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cart" Relationship="storeModel.FK__Cart__Product_id__4D94879B" FromRole="Product1" ToRole="Cart1" />
+          <NavigationProperty Name="Category" Relationship="storeModel.FK_Product_Category1" FromRole="Product1" ToRole="Category1" />
+        </EntityType>
+        <Association Name="FK__Cart__Product_id__4D94879B">
+          <End Type="storeModel.Product1" Role="Product1" Multiplicity="1" />
+          <End Type="storeModel.Cart1" Role="Cart1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Product1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cart1">
+              <PropertyRef Name="Product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Category1">
+          <End Type="storeModel.Category1" Role="Category1" Multiplicity="1" />
+          <End Type="storeModel.Product1" Role="Product1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category1">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product1">
+              <PropertyRef Name="categryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="storeModelStoreContainer" CdmEntityContainer="ApplicationdbContext">
-          <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="storeModel.Category">
-              <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="number_of_products" ColumnName="number_of_products" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="storeModel.Product">
-              <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="categryId" ColumnName="categryId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="storeModelStoreContainer" CdmEntityContainer="ApplicationdbContext">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="IsTypeOf(storeModel.Category)">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="number_of_products" ColumnName="number_of_products" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="IsTypeOf(storeModel.Product)">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="categryId" ColumnName="categryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cart">
+      <EntityTypeMapping TypeName="IsTypeOf(storeModel.Cart)">
+        <MappingFragment StoreEntitySet="Carts">
+          <ScalarProperty Name="product_Id" ColumnName="product_Id" />
+          <ScalarProperty Name="added_at" ColumnName="added_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cart1">
+      <EntityTypeMapping TypeName="IsTypeOf(storeModel.Cart1)">
+        <MappingFragment StoreEntitySet="Cart1">
+          <ScalarProperty Name="Product_id" ColumnName="Product_id" />
+          <ScalarProperty Name="added_at" ColumnName="added_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Category1">
+      <EntityTypeMapping TypeName="IsTypeOf(storeModel.Category1)">
+        <MappingFragment StoreEntitySet="Category1">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="number_of_products" ColumnName="number_of_products" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product1">
+      <EntityTypeMapping TypeName="IsTypeOf(storeModel.Product1)">
+        <MappingFragment StoreEntitySet="Product1">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="categryId" ColumnName="categryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ProductCart" TypeName="storeModel.ProductCart" StoreEntitySet="Products">
+      <EndProperty Name="Cart">
+        <ScalarProperty Name="product_Id" ColumnName="Cart_product_Id" />
+      </EndProperty>
+      <EndProperty Name="Product">
+        <ScalarProperty Name="id" ColumnName="id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -133,7 +345,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
